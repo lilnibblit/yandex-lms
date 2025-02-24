@@ -1,12 +1,14 @@
 {
   "name": "yandex-lms",
-  "description": "lyncing learning management system for Yandex",
+  "displayName": "Yandex LMS",
+  "description": "Yandex Lyceum LMS integration for Visual Studio Code",
+  "icon": "icon.png",
   "version": "0.0.1",
   "publisher": "dotnet",
   "engines": {
     "vscode": "^1.74.0"
   },
-  "repository": { "type": "git", "url": "https://github.com/dotnet/yandex-lms.git" },
+  "repository": { "type": "git", "url": "https://github.com/lilnibblit/yandex-lms.git" },
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
