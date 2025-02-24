@@ -26,16 +26,16 @@ export class MyWebviewViewProvider implements vscode.WebviewViewProvider {
       enableScripts: true
     };
 
-    if (path.join(__dirname, "session.txt"))
-      panel.webview.html = this.getWebviewContent(this.context, "lessons");
-    else panel.webview.html = this.getWebviewContent(this.context, "login");
+    if (fs.existsSync(path.join(this.context.extensionPath, "media", "session.txt")))
+      panel.webview.html = this.getWebviewContent("lessons");
+    else panel.webview.html = this.getWebviewContent("login");
 
     panel.webview.onDidReceiveMessage(
       async (message) => {
         let cookie;
         switch (message.command) {
           case 'href':
-            panel.webview.html = this.getWebviewContent(this.context, message.href);
+            panel.webview.html = this.getWebviewContent(message.href);
             return;
 
           case 'fetch':
@@ -106,14 +106,14 @@ export class MyWebviewViewProvider implements vscode.WebviewViewProvider {
     );
   }
 
-  getWebviewContent(context: vscode.ExtensionContext, page:string) {
-    return fs.readFileSync(path.join(context.extensionPath, "src", "web", `${page}.html`), 'utf-8').toString();
+  getWebviewContent(page:string) {
+    return fs.readFileSync(path.join(this.context.extensionPath, "media", `${page}.html`), 'utf-8').toString();
   }
   Session(data = undefined) {
     if (data) {
-      fs.writeFileSync(path.join(__dirname, "session.txt"), data);
+      fs.writeFileSync(path.join(this.context.extensionPath, "media", "session.txt"), data);
     } else {
-      return fs.readFileSync(path.join(__dirname, "session.txt"), 'utf-8').toString();
+      return fs.readFileSync(path.join(this.context.extensionPath, "media", "session.txt"), 'utf-8').toString();
     }
   }
 }

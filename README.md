@@ -1,4 +1,4 @@
-# yandex-lms README
+# Yandex LMS README
 
 cool ext
 
