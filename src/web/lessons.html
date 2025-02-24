@@ -193,8 +193,6 @@
         }
 
         async function main() {
-            console.log(document.cookie);
-            console.log(window.location.href);
             const profile = await fesch("https://lms.yandex.ru/api/profile");
 
             profile.coursesSummary.student.forEach(course => {

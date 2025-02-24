@@ -35,13 +35,11 @@ export class MyWebviewViewProvider implements vscode.WebviewViewProvider {
         let cookie;
         switch (message.command) {
           case 'href':
-            vscode.window.showErrorMessage(message.href);
             panel.webview.html = this.getWebviewContent(this.context, message.href);
             return;
 
           case 'fetch':
             cookie = this.Session() || "sigma";
-            console.log(`Cookie: ${cookie}`);
 
             const response = await fetch(message.url, {
               headers: {
@@ -51,20 +49,16 @@ export class MyWebviewViewProvider implements vscode.WebviewViewProvider {
 
             if (response.status != 200) {
               vscode.window.showErrorMessage(response.status.toString());
-              console.log(response.body);
               return;
             }
 
             const body = await response.json();
             panel.webview.postMessage({ command: "fetch", body: body });
-
-            console.log(body);
             
             return;
 
           case 'session':
             this.Session(message.data);
-            console.log(`Set cookie ${message.data}`);
             return;
 
           case 'setCode':
@@ -89,9 +83,7 @@ export class MyWebviewViewProvider implements vscode.WebviewViewProvider {
               return vscode.window.showErrorMessage('No active text editor!');
             }
             cookie = this.Session() || "sigma";
-            console.log(cookie);
 
-            console.log(active);
             const formData = new FormData();
             formData.append('file', fs.createReadStream(active), {
               filename: 'solution.py',
@@ -99,7 +91,6 @@ export class MyWebviewViewProvider implements vscode.WebviewViewProvider {
             });
             
             const csrf = (';'+cookie).split(`;csrftoken=`).pop()?.split(';')[0] || "ligma"
-            console.log(csrf);
 
             const solve = await fetch(`https://lms.yandex.ru/api/student/solutions/${message.solutionId}/comments/files`, {
               method: 'POST',
@@ -110,9 +101,6 @@ export class MyWebviewViewProvider implements vscode.WebviewViewProvider {
               },
               body: formData
             });
-
-            vscode.window.showInformationMessage(solve.statusText);
-            console.log(solve);
         }
       }
     );
