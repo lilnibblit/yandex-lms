@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+</head>
+<body>
+    <p>Cookies</p>
+    <input type="text" name="cookies" id="cookies">
+    <p></p>
+    <button type="submit" id="submit">Login</button>
+
+    <script>
+        const vscode = acquireVsCodeApi();
+        const cookies = document.getElementById("cookies");
+        const submit = document.getElementById("submit");
+
+        async function check() {
+            await vscode.postMessage({ command: "session", data: cookies.value });
+            await vscode.postMessage({ command: "href", href: "lessons" });
+        }
+
+        submit.addEventListener("click", check);
+    </script>
+</body>
+</html>

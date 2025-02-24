@@ -1,0 +1,46 @@
+{
+  "name": "yandex-lms",
+  "description": "lyncing learning management system for Yandex",
+  "version": "0.0.1",
+  "publisher": "dotnet",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "lms",
+          "title": "Yandex LMS",
+          "icon": "buggy.svg"
+        }
+      ]
+    },
+    "views": {
+      "lms": [
+        {
+          "type": "webview",
+          "id": "lms.Browse",
+          "name": "Browse"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "watch": "tsc -watch -p ./"
+  },
+  "dependencies": {
+    "@types/vscode": "^1.97.0",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^9.4.6",
+    "@types/node-fetch": "^2.6.12",
+    "typescript": "^5.7.3"
+  }
+}
